@@ -7,6 +7,7 @@ import com.adel.expenses.service.expensedto.ExpRequestDto;
 import com.adel.expenses.service.expensedto.ExpenseDto;
 import com.adel.expenses.service.expensedto.SummaryResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Tuple;
@@ -33,9 +34,9 @@ public class ExpenseController {
     }
 
     @DeleteMapping(value = "/delone/{id}")
-    public String deleteOne(@PathVariable(value = "id") Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteOne(@PathVariable(value = "id") Long id) {
         expenseService.deleteOne(id);
-        return "Deleted";
     }
 
 

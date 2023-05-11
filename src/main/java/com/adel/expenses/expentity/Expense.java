@@ -33,23 +33,6 @@ public class Expense {
     @Enumerated(EnumType.STRING)
     private ExpenseType type;
 
-    public static List<ExpenseDto> dtos(List<Expense> expenses) {
-        List<ExpenseDto> list = new ArrayList<>();
-        for (Expense expense : expenses) {
-            list.add(expense.dto());
-        }
-        return list;
-    }
 
-    public ExpenseDto dto() {
-        return ExpenseDto.builder()
-                .id(this.getId())
-                .name(this.getName())
-                .note(this.getNote())
-                .date(this.getDate())
-                .amount(this.getAmount())
-                .type(this.getType())
-                .build();
-    }
 
 }

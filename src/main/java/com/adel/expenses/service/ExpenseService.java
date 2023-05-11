@@ -28,12 +28,12 @@ public class ExpenseService {
                 .amount(expRequestDto.getAmount())
                 .type(expRequestDto.getType())
                 .build());
-        return save.dto();
+        return ExpenseDto.dto(save);
     }
 
     public List<ExpenseDto> getAll() {
         List<Expense> all = expenseDao.findAll();
-        return Expense.dtos(all);
+        return ExpenseDto.dtos(all);
     }
 
     public Expense getOne(Long id) {
@@ -49,7 +49,7 @@ public class ExpenseService {
         LocalDate fromDate = LocalDate.parse(fromDatestr);
         LocalDate toDate = LocalDate.parse(toDatestr);
         List<Expense> all = expenseDao.findAllByDateBetween(fromDate, toDate);
-        return Expense.dtos(all);
+        return ExpenseDto.dtos(all);
     }
 
     public List<SummaryResponseDto> summaryAmount() {
