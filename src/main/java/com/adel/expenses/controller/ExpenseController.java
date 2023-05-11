@@ -40,9 +40,10 @@ public class ExpenseController {
     }
 
 
+
+    // TODO: pagination, searching notes, sorting by date, amount, name, type, etc.
     @GetMapping(value = "/getall")
     public List<ExpenseDto> getAll() {
-
         return expenseService.getAll();
     }
 
