@@ -1,7 +1,7 @@
 package com.adel.expenses.controller;
 
 
-import com.adel.expenses.expentity.Expense;
+import com.adel.expenses.entity.expense.Expense;
 import com.adel.expenses.service.ExpenseService;
 import com.adel.expenses.service.expensedto.ExpRequestDto;
 import com.adel.expenses.service.expensedto.ExpenseDto;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Tuple;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -44,8 +43,18 @@ public class ExpenseController {
     // TODO: pagination, searching notes, sorting by date, amount, name, type, etc.
     @GetMapping(value = "/getall")
     public List<ExpenseDto> getAll() {
+
+
+
         return expenseService.getAll();
     }
+
+    @GetMapping(value = "/getfive")
+    public List<ExpenseDto> getFive() {
+        return expenseService.getFive();
+    }
+
+
 
 
 

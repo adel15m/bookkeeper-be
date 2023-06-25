@@ -1,6 +1,6 @@
 package com.adel.expenses.service.expensedto;
 
-import com.adel.expenses.expentity.ExpenseType;
+import com.adel.expenses.entity.expense.ExpenseType;
 import lombok.*;
 
 @Builder

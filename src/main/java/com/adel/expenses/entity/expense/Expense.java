@@ -1,19 +1,17 @@
-package com.adel.expenses.expentity;
+package com.adel.expenses.entity.expense;
 
-import com.adel.expenses.service.expensedto.ExpenseDto;
+import com.adel.expenses.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Table(name = "Aexpense")
+@Table(name = "t_expense")
 @Builder
 @Entity
 public class Expense {
@@ -34,5 +32,8 @@ public class Expense {
     private ExpenseType type;
 
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 }

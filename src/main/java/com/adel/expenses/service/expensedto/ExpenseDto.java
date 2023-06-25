@@ -1,12 +1,11 @@
 package com.adel.expenses.service.expensedto;
 
-import com.adel.expenses.expentity.Expense;
-import com.adel.expenses.expentity.ExpenseType;
+import com.adel.expenses.entity.expense.Expense;
+import com.adel.expenses.entity.expense.ExpenseType;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter

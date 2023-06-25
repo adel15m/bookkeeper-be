@@ -1,8 +1,10 @@
 package com.adel.expenses.service;
 
 
-import com.adel.expenses.expentity.Expense;
-import com.adel.expenses.expentity.ExpenseDao;
+import com.adel.expenses.entity.expense.Expense;
+import com.adel.expenses.entity.expense.ExpenseDao;
+import com.adel.expenses.entity.user.UserRole;
+import com.adel.expenses.security.LoggedInUser;
 import com.adel.expenses.service.expensedto.ExpRequestDto;
 import com.adel.expenses.service.expensedto.ExpenseDto;
 import com.adel.expenses.service.expensedto.SummaryResponseDto;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,9 +35,20 @@ public class ExpenseService {
     }
 
     public List<ExpenseDto> getAll() {
+
+        String userName = LoggedInUser.getUserName();
+        Long userId = LoggedInUser.getUserId();
+        if(LoggedInUser.hasRole(UserRole.REGULAR)){
+            System.out.println("regular user");
+        } else if(LoggedInUser.hasRole(UserRole.ADMIN)){
+            System.out.println("admin user");
+        }
+
         List<Expense> all = expenseDao.findAll();
         return ExpenseDto.dtos(all);
     }
+
+
 
     public Expense getOne(Long id) {
         return expenseDao.findById(id).get();
@@ -61,6 +75,9 @@ public class ExpenseService {
     }
 
 
+    public List<ExpenseDto> getFive() {
+        return new ArrayList<>();
+    }
 }
 
 
