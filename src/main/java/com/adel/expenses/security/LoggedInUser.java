@@ -5,14 +5,13 @@ import com.adel.expenses.security.jwtutils.Role;
 import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 
 public class LoggedInUser {
 
 
     public static String getUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return ((UserDetails) authentication.getPrincipal()).getUsername();
+        return (String) authentication.getPrincipal();
     }
 
     public static boolean hasRole(UserRole role) {
