@@ -4,7 +4,7 @@ import com.adel.expenses.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -24,7 +24,7 @@ public class Expense {
     @Column(name = "note", nullable = false)
     private String note;
     @Column(name = "date", nullable = false)
-    private LocalDate date;
+    private LocalDateTime date;
     @Column(name = "amount", nullable = false)
     private Double amount;
     @Column(name = "type", nullable = false)

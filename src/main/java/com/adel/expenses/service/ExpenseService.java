@@ -13,6 +13,9 @@ import com.adel.expenses.service.expensedto.ExpenseDto;
 import com.adel.expenses.service.expensedto.SummaryResponseDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -51,18 +54,25 @@ public class ExpenseService {
         return ExpenseDto.dto(save);
     }
 
-    public List<ExpenseDto> getAll() {
+    public AllDto getAll(Integer pageNumber, Integer pageSize, String searchTerm, String sortBy, Boolean desc) {
 
-        String userName = LoggedInUser.getUserName();
-        Long userId = LoggedInUser.getUserId();
-        if(LoggedInUser.hasRole(UserRole.REGULAR)){
-            System.out.println("regular user");
-        } else if(LoggedInUser.hasRole(UserRole.ADMIN)){
-            System.out.println("admin user");
+        Sort sort = Sort.by(sortBy);
+        sort = (desc) ? sort.descending() : sort.ascending();
+        PageRequest pageable = PageRequest.of(pageNumber, pageSize, sort);
+
+        Page<Expense> page = Page.empty();
+        if (LoggedInUser.hasRole(UserRole.REGULAR)) {
+            page = expenseDao.findAllByUserAndSearchTerm(LoggedInUser.getUserId(), "%" + searchTerm + "%", pageable);
+        } else if (LoggedInUser.hasRole(UserRole.ADMIN)) {
+            page = expenseDao.findAllBySearchTerm("%" + searchTerm + "%", pageable);
         }
 
-        List<Expense> all = expenseDao.findAll();
-        return ExpenseDto.dtos(all);
+        return AllDto
+                .builder()
+                .list(ExpenseDto.dtos(page.getContent()))
+                .pages(page.getTotalPages())
+                .count(page.getTotalElements())
+                .build();
     }
 
 
@@ -88,11 +98,6 @@ public class ExpenseService {
 
     public Long sumAmount() {
         return expenseDao.sumAmount();
-    }
-
-
-    public List<ExpenseDto> getFive() {
-        return new ArrayList<>();
     }
 }
 
