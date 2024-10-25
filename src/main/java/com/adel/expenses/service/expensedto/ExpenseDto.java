@@ -2,9 +2,10 @@ package com.adel.expenses.service.expensedto;
 
 import com.adel.expenses.entity.expense.Expense;
 import com.adel.expenses.entity.expense.ExpenseType;
+import com.adel.expenses.service.user.dto.UserDto;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,11 @@ public class ExpenseDto {
     private Long id;
     private String name;
     private String note;
-    private LocalDate date;
+    private LocalDateTime date;
     private Double amount;
     private ExpenseType type;
+    private UserDto user;
+
 
     public static List<ExpenseDto> dtos(List<Expense> expenses) {
         List<ExpenseDto> list = new ArrayList<>();
@@ -39,6 +42,7 @@ public class ExpenseDto {
                 .date(expense.getDate())
                 .amount(expense.getAmount())
                 .type(expense.getType())
+                .user(UserDto.dto(expense.getUser()))
                 .build();
     }
 }
